@@ -1,19 +1,22 @@
 #include <Arduino.h>
+#include <stdio.h>
 #include "stepper.hpp"
+#include "solenoid.hpp"
 
+#define SOLENOID_PIN 6 // Direction pin for the stepper motor
 #define STEPPER_DIR 5 // Direction pin for the stepper motor
 #define STEPPER_STEP 4 // Step pin for the stepper motor
 
 void setup() {
     pinMode(STEPPER_DIR, OUTPUT);
     pinMode(STEPPER_STEP, OUTPUT);
-
-    stepperCW(1); // Move the stepper motor 200 steps clockwise
+    pinMode(SOLENOID_PIN, OUTPUT);
 }
 
 void loop() {
-    delay(5000); // Wait for 5 seconds
-    stepperCCW(10); // Move the stepper motor 200 steps counter-clockwise
-    delay(1000);
-    stepperCW(10); // Move the stepper motor 200 steps clockwise
+    for (int i = 0; i < 3; i++) { // pulse solenoid 3 times
+        solenoid(50); // Activate solenoid for 50 ms
+        delay(500); // Wait for 1 second
+    }
+    delay(2000); // Wait for 2 seconds before the next loop
 }

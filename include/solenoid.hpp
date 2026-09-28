@@ -1,3 +1,3 @@
 #pragma once
 
-void solenoid();
+void solenoid(int pulse);
